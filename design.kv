@@ -1,6 +1,8 @@
 <LoginScreen>:
     GridLayout:
+        cols: 1
         GridLayout:
+            cols: 1
             Label:
                 text: "User Login"
             TextInput:
@@ -19,7 +21,28 @@
             
             Button:
                 text: "Sign Up"
+                on_press: root.sign_up()
+
+<SignUpScreen>
+    GridLayout:
+        cols: 1
+        Label:
+            text: "Sign up for great quotes!"
+
+        TextInput:
+            id: username
+            hint_text: "Username"
+
+        TextInput:
+            id: password
+            hint_text: "Password"
+
+        Button:
+            text: "Sign Up"
+            on_press: root.add_user(root.ids.username.text, root.ids.password.text)
 
 <RootWidget>:
     LoginScreen:
         name: "login_screen"
+    SignUpScreen:
+        name: "sign_up_screen"
