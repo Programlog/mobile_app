@@ -17,6 +17,9 @@ class SignUpScreen(Screen):
         with open("users.json") as file:
             users = json.load(file)
 
+        if len(uname) < 3 or len(pword) < 5:
+            print('PLEASE TYPE USERNAME OR PASSWORD AGAIN.\nUsername must be at least characters.\nPasswords must be at least 5 characters.')
+
         users[uname] = {'username': uname, 'password': pword,
                         'created': datetime.now().strftime("%Y-%m-%d %H-%M-%S")}
 
@@ -28,6 +31,7 @@ class SignUpScreen(Screen):
 
 class SignUpScreenSuccess(Screen):
     def back_to_login(self):
+        self.manager.transition.direction = 'right'
         self.manager.current = "login_screen"
 
 
