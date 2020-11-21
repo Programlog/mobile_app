@@ -6,17 +6,26 @@ from datetime import datetime
 
 Builder.load_file('design.kv')
 
-
+with open("users.json") as file:
+    users = json.load(file)
+            
 class LoginScreen(Screen):
     def sign_up(self):
         self.manager.current = "sign_up_screen"
 
+    def login(self, uname, pword):
+        if uname == '' or pword == '':
+             self.ids.login_wrong.text = "Please type a username or password"
+
+        elif uname in users and users[uname]['password'] == pword:
+            self.manager.current = 'login_screen_success'
+        else:
+            print('fail')
+            self.ids.login_wrong.text = "Wrong username or password"
+
 
 class SignUpScreen(Screen):
     def add_user(self, uname, pword):
-        with open("users.json") as file:
-            users = json.load(file)
-
         if len(uname) < 3 or len(pword) < 5:
             print('PLEASE TYPE USERNAME OR PASSWORD AGAIN.\nUsername must be at least characters.\nPasswords must be at least 5 characters.')
 
@@ -32,6 +41,12 @@ class SignUpScreen(Screen):
 class SignUpScreenSuccess(Screen):
     def back_to_login(self):
         self.manager.transition.direction = 'right'
+        self.manager.current = "login_screen"
+
+
+class LoginScreenSuccess(Screen):
+    def log_out(self):
+        self.manager.transition.direction = "right"
         self.manager.current = "login_screen"
 
 
