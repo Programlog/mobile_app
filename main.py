@@ -53,8 +53,17 @@ class LoginScreenSuccess(Screen):
     def get_quote(self, feel):
         feel = feel.lower()
         available_feelings = glob.glob("quotes/*txt")
-        available_feelings = [Path(filename) for filename 
+        available_feelings = [Path(filename).stem for filename 
                                 in available_feelings]
+
+        quotes = "Please try again with the available feelings"
+        if feel in available_feelings:
+            with open(f"quotes/{feel}.txt") as file:
+                quotes = file.readlines()
+
+            print(quotes)
+
+
 
         
 
