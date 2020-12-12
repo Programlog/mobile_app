@@ -59,7 +59,6 @@ class LoginScreenSuccess(Screen):
         available_feelings = [Path(filename).stem for filename 
                                 in available_feelings]
         
-        myline = "Please try again with the available feelings"
         if feel in available_feelings:
             with open(f"quotes/{feel}.txt") as file:
                 quotes = file.readlines()
@@ -70,8 +69,10 @@ class LoginScreenSuccess(Screen):
                 myline = random.choice(quotes)
 
             self.previous_line = myline
+            self.ids.quote.text = myline
 
-        self.ids.quote.text = myline
+        else:
+            self.ids.quote.text = "Sorry, that feeling isn't supported yet. Please try something else"
 
 
 
