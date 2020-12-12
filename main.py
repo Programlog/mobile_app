@@ -47,6 +47,8 @@ class SignUpScreenSuccess(Screen):
 
 
 class LoginScreenSuccess(Screen):
+    previous_line = 'placeholder'
+
     def log_out(self):
         self.manager.transition.direction = "right"
         self.manager.current = "login_screen"
@@ -56,15 +58,20 @@ class LoginScreenSuccess(Screen):
         available_feelings = glob.glob("quotes/*txt")
         available_feelings = [Path(filename).stem for filename 
                                 in available_feelings]
-
-        quotes = "Please try again with the available feelings"
+        
+        myline = "Please try again with the available feelings"
         if feel in available_feelings:
             with open(f"quotes/{feel}.txt") as file:
                 quotes = file.readlines()
 
-            print(quotes)
+            myline = random.choice(quotes)
 
-        self.ids.quote.text = random.choice(quotes)
+            while myline == self.previous_line:
+                myline = random.choice(quotes)
+
+            self.previous_line = myline
+
+        self.ids.quote.text = myline
 
 
 
