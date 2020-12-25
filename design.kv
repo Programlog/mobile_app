@@ -24,6 +24,7 @@
             cols: 2
             Button:
                 text: "Forgot Password"
+                on_press: root.forgot_pass()
             Button:
                 text: "Sign Up"
                 on_press: root.sign_up()
@@ -55,6 +56,20 @@
             text: "Login Page"
             on_press: root.back_to_login()
 
+<ForgotPassScreen>:
+    GridLayout:
+        cols: 1
+        TextInput:
+            id: username1
+            hint_text: "Type in your username"
+        TextInput:
+            id: new_password
+            hint_text: "Type your new password"
+        Button:
+            text: "Submit"
+            on_press: root.forgot_pass_success(root.ids.username1.text, root.ids.new_password.text)
+
+
 <LoginScreenSuccess>:
     GridLayout:
         cols: 1
@@ -82,3 +97,5 @@
         name: "sign_up_screen_success"
     LoginScreenSuccess:
         name: "login_screen_success"
+    ForgotPassScreen:
+        name: "forgot_pass_screen"

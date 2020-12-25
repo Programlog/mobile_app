@@ -25,6 +25,9 @@ class LoginScreen(Screen):
             print('fail')
             self.ids.login_wrong.text = "Wrong username or password"
 
+    def forgot_pass(self):
+        self.manager.current = "forgot_pass_screen"
+
 
 class SignUpScreen(Screen):
     def add_user(self, uname, pword):
@@ -75,8 +78,21 @@ class LoginScreenSuccess(Screen):
             self.ids.quote.text = "Sorry, that feeling isn't supported yet. Please try something else"
 
 
+class ForgotPassScreen(Screen):
+    print('ran') 
 
-        
+    def forgot_pass_success(self, username, new_password): 
+        print(username, new_password)
+        with open('users.json') as f:
+            data = json.load(f)
+        for i, key in enumerate(data.keys()):
+            print(data.keys())
+            if username == key:
+                print('done', i)
+                break
+            else:
+                print('failed')
+
 
 
 class RootWidget(ScreenManager):
